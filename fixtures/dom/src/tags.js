@@ -62,7 +62,10 @@ export default function getVersionTags() {
           }
           resolve(tags);
         })
-        .catch(() => resolve(fallbackTags));
+        .catch(err => {
+          console.error('Error fetching tags:', err);
+          resolve(fallbackTags);
+        })
     }
   });
 }

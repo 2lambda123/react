@@ -28,11 +28,7 @@ const fallbackTags = [
 
 let canUseSessionStorage = true;
 
-try {
-  sessionStorage.setItem('foo', '');
-} catch (err) {
-  canUseSessionStorage = false;
-}
+// Removing unnecessary try-catch block that checks for sessionStorage availability
 
 /**
  * Attempts to load tags from sessionStorage. In cases where

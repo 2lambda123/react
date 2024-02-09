@@ -25,7 +25,8 @@ const {
   execRead,
 } = require('./utils');
 
-// This is the primary control function for this script.
+const winston = require('winston');
+const logger = winston.createLogger();
 async function main() {
   clear();
 
@@ -51,7 +52,11 @@ async function main() {
       ? `${major}.${minor + 1}.0`
       : `${major}.${minor}.${patch + 1}`;
 
-  updateChangelog(nextVersion, formattedCommitLog);
+  try {
+    updateChangelog(nextVersion, formattedCommitLog);
+  } catch (error) {
+    logger.error('An error occurred in the updateChangelog function:', error);
+  }
 
   await reviewChangelogPrompt();
 
@@ -62,7 +67,11 @@ async function main() {
   console.log(
     `Packages and manifests have been updated from version ${chalk.bold(
       previousVersion
-    )} to ${chalk.bold(nextVersion)}`
+    )  } catch (error) {
+    logger.error('An error occurred in the printFinalInstructions function:', error);
+  }
+
+  printFinalInstructions(); to ${chalk.bold(nextVersion)}`
   );
   console.log('');
 
